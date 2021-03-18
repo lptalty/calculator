@@ -1,0 +1,58 @@
+#buttonContainer{
+    background-color: tomato;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 400px;
+    width: 404px;
+
+}
+
+#buttonOperators{
+    background-color: teal;
+    position: absolute;
+    height: 300px;
+    width: 124px;
+    right: 0px;
+    top: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.operator{
+    text-align: center;
+    position: relative;
+}
+
+#numbers{
+    position: absolute;
+    left: 0px;
+    bottom:0px;
+    width: 280px;
+    height: 300px;
+    background-color: rgb(58, 33, 148);
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+}
+
+.number{
+
+    text-align: center;
+    position:relative;
+    /* padding: 15px 32px; */
+    /* display: inline-block; */
+    font-size: 10px;
+    
+}
+
+#display{
+    position: absolute;
+    top: 0px;
+    background-color: thistle;
+    height: 80px;
+    width: 394px;
+    left: 5px;
+    right: 5px;
+    top: 10px;
+}
