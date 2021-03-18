@@ -1,0 +1,1 @@
+This project is to create a functional calculator that will evaluate a single pair of values at a time, displaying the user input and result within a virtual calculator on the browser. 
