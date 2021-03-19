@@ -25,3 +25,17 @@ function operate(num1, num2, operator){
     if(operator === '/') return divide(num1, num2)
 }
 
+const myNumbers = document.getElementsByClassName("number")
+const clearBtn = document.getElementById("clearBtn")
+
+for(let number of myNumbers){
+    number.addEventListener('click', function(){
+        document.getElementById("display").innerText += number.innerText
+    })
+}
+
+clearBtn.addEventListener('click', function(){
+    document.getElementById("display").innerText = '';
+})
+
+
