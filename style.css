@@ -1,20 +1,24 @@
+* {
+    background-color: #e5e5dc;
+}
+
 #buttonContainer{
-    background-color: tomato;
+    background-color:#c4a35a;
     transform: translate(-50%, -50%);
     position: absolute;
     top: 50%;
     left: 50%;
     height: 400px;
     width: 404px;
+    border-radius: 2px;
 
 }
 
 #buttonOperators{
-    background-color: teal;
     position: absolute;
-    height: 300px;
-    width: 124px;
-    right: 0px;
+    height: 290px;
+    width: 114px;
+    right: 10px;
     top: 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -22,37 +26,81 @@
 
 .operator{
     text-align: center;
-    position: relative;
+    position:relative;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #26495c;
+    color: #e5e5dc;
+}
+
+#equalBtn{
+    background-color:#26495c;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    color: #e5e5dc;
+}
+
+#clearBtn{
+    background-color: #26495c;
+    font-family: 'Courier New', Courier, monospace;
+    color: #e5e5dc;
+    font-size: 25px;
 }
 
 #numbers{
     position: absolute;
-    left: 0px;
-    bottom:0px;
-    width: 280px;
-    height: 300px;
-    background-color: rgb(58, 33, 148);
+    left: 10px;
+    bottom:10px;
+    width: 260px;
+    height: 290px;
+    /* background-color: rgb(58, 33, 148); */
     grid-template-columns: repeat(3, 1fr);
     display: grid;
+    
 }
 
 .number{
 
     text-align: center;
     position:relative;
-    /* padding: 15px 32px; */
-    /* display: inline-block; */
     font-size: 25px;
-    
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #c66b3d;
+    color: #e5e5dc;
+}
+
+#decimal{
+    text-align: center;
+    position:relative;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #c66b3d;
+    color: #e5e5dc;
+}
+
+#plusMinus{
+    text-align: center;
+    position:relative;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #c66b3d;
+    color: #e5e5dc;
 }
 
 #display{
     position: absolute;
-    top: 0px;
-    background-color: thistle;
+    background-color: #e5e5dc;
     height: 80px;
-    width: 394px;
-    left: 5px;
-    right: 5px;
+    width: 384px;
+    left: 10px;
+    right: 10px;
     top: 10px;
+    font-size: 46px;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
 }
