@@ -41,6 +41,7 @@ let decimalClick = false;
 
 for(let number of myNumbers){
     number.addEventListener('click', function(){
+        //don't let user click multiple zeros before a decimal
         if(document.getElementById("display").innerText != 'Err'){
             if(num1 != undefined && num2 === undefined){
                 if((document.getElementById("display").innerText !== '-') && (document.getElementById("display").innerText !== '.')){
@@ -68,7 +69,7 @@ clearBtn.addEventListener('click', function(){
 
 equalBtn.addEventListener('click', function(){
     num2 = document.getElementById("display").innerText;
-    if( num1 ==='0' && num2 === '0' && currentOperator === '/'){
+    if( Number(Math.abs(num1)) ===0 && Number(Math.abs(num2)) === 0 && currentOperator === '/'){
         document.getElementById("display").innerText = 'Err';
         num1 = undefined;
         num2 = undefined;
@@ -85,7 +86,10 @@ equalBtn.addEventListener('click', function(){
 
 decimalBtn.addEventListener('click', function(){
     if(document.getElementById("display").innerText != 'Err'){
-        if(decimalClick === false){
+        if(decimalClick === false && document.getElementById("display").innerText == ''){
+            decimalClick = true;
+            document.getElementById("display").innerText += '0.'
+        } else if(decimalClick === false && document.getElementById("display").innerText !== ''){
             decimalClick = true;
             document.getElementById("display").innerText += '.'
         }
@@ -106,20 +110,27 @@ for(let operator of myOperators){
     operator.addEventListener('click', function(){
         if(document.getElementById("display").innerText != 'Err'){
             if(currentOperator != undefined && operated === false){
-                num2 = document.getElementById("display").innerText;
-    
-                if( num1 ==='0' && num2 === '0' && currentOperator === '/'){
-                    document.getElementById("display").innerText = 'Err';
-                    num1 = undefined;
-                    num2 = undefined;
-                    currentOperator = undefined;
-                } else {
-                    result = operate(num1, num2, currentOperator)
-                    document.getElementById("display").innerText = Math.round(result * 100) / 100;
-                    decimalClick = false;
-                    num1 = Math.round(result * 100) / 100;
-                    num2 = undefined;
-                    operated = true;
+                if(document.getElementById("display").innerText == ''){
+                    num2 = undefined
+                } else if (document.getElementById("display").innerText !== ''){
+                    num2 = document.getElementById("display").innerText;
+                }
+                if(!isNaN(num2)){
+                    if( Number(Math.abs(num1)) ===0 && Number(Math.abs(num2)) === 0 && currentOperator === '/'){
+                        document.getElementById("display").innerText = 'Err';
+                        num1 = undefined;
+                        num2 = undefined;
+                        currentOperator = undefined;
+                    } else {
+                        result = operate(num1, num2, currentOperator)
+                        document.getElementById("display").innerText = Math.round(result * 100) / 100;
+                        decimalClick = false;
+                        num1 = Math.round(result * 100) / 100;
+                        num2 = undefined;
+                        operated = true;
+                        currentOperator = operator.innerText;
+                    }
+                } else if(isNaN(num2)){
                     currentOperator = operator.innerText;
                 }
             } else if(currentOperator != undefined && operated === true){
