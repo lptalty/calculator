@@ -38,22 +38,41 @@ let currentOperator = undefined;
 let result = undefined;
 let operated = false;
 let decimalClick = false;
+let firstNumClick = false;
 
 for(let number of myNumbers){
     number.addEventListener('click', function(){
         //don't let user click multiple zeros before a decimal
         if(document.getElementById("display").innerText != 'Err'){
+
+            if(firstNumClick === false && document.getElementById("display").innerText === '0' || firstNumClick === false && document.getElementById("display").innerText === '-0'){
+                firstNumClick = true;
+            }
+
             if(num1 != undefined && num2 === undefined){
-                if((document.getElementById("display").innerText !== '-') && (document.getElementById("display").innerText !== '.')){
+                if((document.getElementById("display").innerText !== '-') && (document.getElementById("display").innerText !== '-0.')){
                     document.getElementById("display").innerText = ''
                 } 
-                document.getElementById("display").innerText += number.innerText
-                num2 = number.innerText
-                operated = false;
+
+                if(firstNumClick === true && document.getElementById("display").innerText === '0' || firstNumClick === true && document.getElementById("display").innerText === '-0'){
+                    return;
+                } else {
+                    document.getElementById("display").innerText += number.innerText
+                    num2 = number.innerText
+                    operated = false;
+                }
             } else if (num1 != undefined && num2 != undefined){
-                document.getElementById("display").innerText += number.innerText
+                if(firstNumClick === true && document.getElementById("display").innerText === '0' || firstNumClick === true && document.getElementById("display").innerText === '-0'){
+                    return;
+                } else{
+                    document.getElementById("display").innerText += number.innerText
+                }
             } else if(num1 === undefined){
-                document.getElementById("display").innerText += number.innerText
+                if(firstNumClick === true && document.getElementById("display").innerText === '0' || firstNumClick === true && document.getElementById("display").innerText === '-0'){
+                    return;
+                } else{
+                    document.getElementById("display").innerText += number.innerText
+                }
             }
         }
     })
@@ -69,24 +88,29 @@ clearBtn.addEventListener('click', function(){
 
 equalBtn.addEventListener('click', function(){
     num2 = document.getElementById("display").innerText;
-    if( Number(Math.abs(num1)) ===0 && Number(Math.abs(num2)) === 0 && currentOperator === '/'){
+    if(num2 === '-' || num2 === '0.' || num2 === '-0.'){
+        num2 = NaN
+    }
+    if(Number(Math.abs(num2)) === 0 && currentOperator === '/'){
         document.getElementById("display").innerText = 'Err';
         num1 = undefined;
         num2 = undefined;
         currentOperator = undefined;
-    } else if(num1 !=undefined && num2 != undefined && currentOperator != undefined){
+    } else if(num1 !=undefined && !isNaN(num2) && currentOperator != undefined){
         result = operate(num1, num2, currentOperator)
         document.getElementById("display").innerText = Math.round(result * 100) / 100;
         num1 = undefined;
         num2 = undefined;
         currentOperator = undefined;
-        
     }
 })
 
 decimalBtn.addEventListener('click', function(){
     if(document.getElementById("display").innerText != 'Err'){
         if(decimalClick === false && document.getElementById("display").innerText == ''){
+            decimalClick = true;
+            document.getElementById("display").innerText += '0.'
+        }else if(decimalClick === false && document.getElementById("display").innerText == '-'){
             decimalClick = true;
             document.getElementById("display").innerText += '0.'
         } else if(decimalClick === false && document.getElementById("display").innerText !== ''){
@@ -98,7 +122,13 @@ decimalBtn.addEventListener('click', function(){
 
 plusMinusBtn.addEventListener('click', function(){
     if(document.getElementById("display").innerText !== '' && document.getElementById("display").innerText !== '-' ){
-        document.getElementById("display").innerText *= -1; 
+        if(document.getElementById("display").innerText[0] == '-'){
+            document.getElementById("display").innerText = document.getElementById("display").innerText.slice(1);
+        } else if(document.getElementById("display").innerText[0] !== '-'){
+            const minusSign = '-'
+            let currentNum = document.getElementById("display").innerText
+            document.getElementById("display").innerText = minusSign.concat(currentNum);
+        }
     } else if(document.getElementById("display").innerText === ''){
         document.getElementById("display").innerText = '-'; 
     } else if (document.getElementById("display").innerText === '-'){
@@ -116,7 +146,7 @@ for(let operator of myOperators){
                     num2 = document.getElementById("display").innerText;
                 }
                 if(!isNaN(num2)){
-                    if( Number(Math.abs(num1)) ===0 && Number(Math.abs(num2)) === 0 && currentOperator === '/'){
+                    if(Number(Math.abs(num2)) === 0 && currentOperator === '/'){
                         document.getElementById("display").innerText = 'Err';
                         num1 = undefined;
                         num2 = undefined;
